@@ -113,13 +113,13 @@ static void key_callback(GLFWwindow* window, int key, int scancode, int action, 
         if (key == GLFW_KEY_LEFT && action == GLFW_PRESS) //TRANSLATE LEFT
                 translate_x -= .1;
         if (key == GLFW_KEY_D && action == GLFW_PRESS) //SHEAR UP
-                shear_y += .1;
+                shear_y += .10;
         if (key == GLFW_KEY_A && action == GLFW_PRESS) //SHEAR DOWN
-                shear_y -= .1;
+                shear_y -= .10;
         if (key == GLFW_KEY_W && action == GLFW_PRESS) //SHEAR RIGHT
-                shear_x += .1;
+                shear_x += .10;
         if (key == GLFW_KEY_S && action == GLFW_PRESS) //SHEAR LEFT
-                shear_x -= .1;
+                shear_x -= .10;
 }
 
 void glCompileShaderOrDie(GLuint shader) {
