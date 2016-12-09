@@ -77,7 +77,7 @@ void read_p3(Pixel *buffer, FILE *input_file, int width, int height){
 /**
  * Read P6 file into a pixel array
  */
-void read_p6(Pixel *buffer, FILE *input_file, int width, int height){
+void read_p6(Pixel *buffer, FILE *input_file, int width, int height) {
         int size = width * height;
         for(int i = 0; i < size; i++) {
                 fread(&buffer[i].r, 1, 1, input_file);
@@ -86,13 +86,11 @@ void read_p6(Pixel *buffer, FILE *input_file, int width, int height){
         }
 }
 
-static void error_callback(int error, const char* description)
-{
+static void error_callback(int error, const char* description) {
         fprintf(stderr, "Error: %s\n", description);
 }
 
-static void key_callback(GLFWwindow* window, int key, int scancode, int action, int mods)
-{
+static void key_callback(GLFWwindow* window, int key, int scancode, int action, int mods) {
         if (key == GLFW_KEY_ESCAPE && action == GLFW_PRESS) // EXIT
                 glfwSetWindowShouldClose(window, GLFW_TRUE);
         if (key == GLFW_KEY_Q && action == GLFW_PRESS) //ROTATE CCW
@@ -100,9 +98,9 @@ static void key_callback(GLFWwindow* window, int key, int scancode, int action, 
         if (key == GLFW_KEY_E && action == GLFW_PRESS) //ROTATE CW
                 rotation -= 12*pi/180;
         if (key == GLFW_KEY_EQUAL && action == GLFW_PRESS) // SCALE UP
-                scale *= 2;
+                scale *= 1.1;
         if (key == GLFW_KEY_MINUS && action == GLFW_PRESS) // SCALE DOWN
-                scale *= .5;
+                scale *= .9;
         if (key == GLFW_KEY_UP && action == GLFW_PRESS) //TRANSLATE UP
                 translate_y += .1;
         if (key == GLFW_KEY_DOWN && action == GLFW_PRESS) //TRANSLATE DOWN
@@ -275,8 +273,7 @@ int main(int argc, char *argv[]) {
         glBindTexture(GL_TEXTURE_2D, texID);
         glUniform1i(tex_location, 0);
 
-        while (!glfwWindowShouldClose(window))
-        {
+        while (!glfwWindowShouldClose(window)){
                 int width, height;
 
                 // get all the matrices
