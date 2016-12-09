@@ -52,11 +52,10 @@ static const char* fragment_shader_text =
     "{\n"
     "    gl_FragColor = texture2D(Texture, TexCoordOut);\n"
     "}\n";
-/*===============================================================*/
-//void read_p3(Pixel *buffer, FILE *input_file, int width, int height);
-//void read_p6(Pixel *buffer, FILE *input_file, int width, int height);
-/*===============================================================*/
-//===============================Code From Project1==================================================//
+
+/**
+ * Read P3 file into a pixel array
+ */
 void read_p3(Pixel *buffer, FILE *input_file, int width, int height){
     //fgetc() and atoi() to read and convert ascii
     int current_read;
@@ -75,6 +74,9 @@ void read_p3(Pixel *buffer, FILE *input_file, int width, int height){
     }
 }
 
+/**
+ * Read P6 file into a pixel array
+ */
 void read_p6(Pixel *buffer, FILE *input_file, int width, int height){
     int size = width * height;
     for(int i = 0; i < size; i++){
@@ -91,32 +93,31 @@ static void error_callback(int error, const char* description)
 
 static void key_callback(GLFWwindow* window, int key, int scancode, int action, int mods)
 {
-    if (key == GLFW_KEY_ESCAPE && action == GLFW_PRESS)
+    if (key == GLFW_KEY_ESCAPE && action == GLFW_PRESS) // EXIT
         glfwSetWindowShouldClose(window, GLFW_TRUE);
-    //Add keys for transformations here
     if (key == GLFW_KEY_Q && action == GLFW_PRESS) //ROTATE CCW
-        rotation += 90*pi/180;
+        rotation += 12*pi/180;
     if (key == GLFW_KEY_E && action == GLFW_PRESS) //ROTATE CW
-        rotation -= 90*pi/180;
+        rotation -= 12*pi/180;
     if (key == GLFW_KEY_EQUAL && action == GLFW_PRESS) // SCALE UP
         scale *= 2;
     if (key == GLFW_KEY_MINUS && action == GLFW_PRESS) // SCALE DOWN
         scale *= .5;
-    if (key == GLFW_KEY_UP && action == GLFW_PRESS)  //Translate Up
+    if (key == GLFW_KEY_UP && action == GLFW_PRESS) //TRANSLATE UP
         translate_y += .1;
-    if (key == GLFW_KEY_DOWN && action == GLFW_PRESS) //Translate Down
+    if (key == GLFW_KEY_DOWN && action == GLFW_PRESS) //TRANSLATE DOWN
         translate_y -= .1;
-    if (key == GLFW_KEY_RIGHT && action == GLFW_PRESS) //Translate Right
+    if (key == GLFW_KEY_RIGHT && action == GLFW_PRESS) //TRANSLATE RIGHT
         translate_x += .1;
-    if (key == GLFW_KEY_LEFT && action == GLFW_PRESS) //Translate Left
+    if (key == GLFW_KEY_LEFT && action == GLFW_PRESS) //TRANSLATE LEFT
         translate_x -= .1;
-    if (key == GLFW_KEY_D && action == GLFW_PRESS) //Shear Up
+    if (key == GLFW_KEY_D && action == GLFW_PRESS) //SHEAR UP
         shear_y += .1;
-    if (key == GLFW_KEY_A && action == GLFW_PRESS) //Shear Down
+    if (key == GLFW_KEY_A && action == GLFW_PRESS) //SHEAR DOWN
         shear_y -= .1;
-    if (key == GLFW_KEY_W && action == GLFW_PRESS) //Shear Right
+    if (key == GLFW_KEY_W && action == GLFW_PRESS) //SHEAR RIGHT
         shear_x += .1;
-    if (key == GLFW_KEY_S && action == GLFW_PRESS) //Shear Left
+    if (key == GLFW_KEY_S && action == GLFW_PRESS) //SHEAR LEFT
         shear_x -= .1;
 }
 
@@ -207,7 +208,7 @@ int main(int argc, char *argv[])
     glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 2);
     glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 0);
 
-    window = glfwCreateWindow(640, 480, "Simple example", NULL, NULL);
+    window = glfwCreateWindow(image_width, image_height, "Simple example", NULL, NULL);
     if (!window)
     {
         glfwTerminate();
@@ -283,7 +284,6 @@ int main(int argc, char *argv[])
 
     while (!glfwWindowShouldClose(window))
     {
-        float ratio;
         int width, height;
 
         // get all the matrices
@@ -291,7 +291,6 @@ int main(int argc, char *argv[])
 
         // set the window properties
         glfwGetFramebufferSize(window, &width, &height);
-        ratio = width / (float) height;
         glViewport(0, 0, width, height);
         glClear(GL_COLOR_BUFFER_BIT);
 
