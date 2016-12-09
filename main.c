@@ -90,6 +90,9 @@ static void error_callback(int error, const char* description) {
         fprintf(stderr, "Error: %s\n", description);
 }
 
+/**
+ * Do all the appropriate actions for each key
+ */
 static void key_callback(GLFWwindow* window, int key, int scancode, int action, int mods) {
         if (key == GLFW_KEY_ESCAPE && action == GLFW_PRESS) // EXIT
                 glfwSetWindowShouldClose(window, GLFW_TRUE);
@@ -276,7 +279,7 @@ int main(int argc, char *argv[]) {
         while (!glfwWindowShouldClose(window)){
                 int width, height;
 
-                // get all the matrices
+                // Declare all the matrices
                 mat4x4 r, h, s, t, rh, rhs, mvp;
 
                 // set the window properties
@@ -284,7 +287,6 @@ int main(int argc, char *argv[]) {
                 glViewport(0, 0, width, height);
                 glClear(GL_COLOR_BUFFER_BIT);
 
-                // Do all the multiplication
 
                 // Rotate
                 mat4x4_identity(r);
@@ -304,7 +306,7 @@ int main(int argc, char *argv[]) {
                 mat4x4_identity(t);
                 mat4x4_translate(t, translate_x, translate_y, 0);
 
-                // Apply Matrices
+                // Multiply Matrices
                 mat4x4_mul(rh, r, h); //R*H
                 mat4x4_mul(rhs, rh, s); //R*H*S
                 mat4x4_mul(mvp, rhs, t); //R*H*S*T
